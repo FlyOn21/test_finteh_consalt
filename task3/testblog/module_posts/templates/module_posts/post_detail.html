@@ -1,0 +1,36 @@
+{% extends 'module_posts/base.html' %}
+{% block content %}
+<div class="container">
+    <div class="card">
+    <img src="{{post.photo}}" class="card-img-top" alt="...">
+        </div>
+        <div class="card-body">
+    <h5 class="card-title">{{post.post_title}}</h5>
+    <p class="card-text">{{post.post_text}}</p>
+<!--    <a href="#" class="btn btn-primary">Коментировать</a>-->
+        </div>
+    <div class="container bg w-100 rounded">
+        {%for comment in comments%}
+        <div class="card">
+          <div class="card-header">
+              {{comment.datetime}}
+          </div>
+          <div class="card-body">
+            <p class="card-text">{{comment.comment_text}}</p>
+          </div>
+        </div>
+        <p></p>
+        {%endfor%}
+        {% if request.user.is_authenticated %}
+    <form class="form-signin" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <label for="comment_text" class="sr-only">Коментарий</label>
+        <textarea rows="10" id="comment_text" name="comment_text" class="form-control" autofocus></textarea>
+        <input type="hidden" name="post_id" value="{{ post.id }}">
+        <p class="mt-2 mb-3"></p>
+        <input class="btn btn-lg btn-primary btn-block" type="submit" value="Коментировать">
+    </form>
+    {%endif%}
+    </div>
+</div>
+{%endblock%}

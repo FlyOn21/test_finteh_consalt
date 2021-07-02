@@ -1,0 +1,31 @@
+{% extends 'module_posts/base.html' %}
+
+{% block title %}
+Создание поста
+{%endblock%}
+
+{% block content %}
+<div class="container bg w-100 rounded">
+    <form class="form-signin" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <h1 class="h3 mb-3 font-weight-normal">Создание поста</h1>
+        <label for="post_title" class="sr-only">Заголовок</label>
+        <input type="text" id="post_title" name="post_title" class="form-control"
+               placeholder="Заголовок" required autofocus>
+        <label for="post_text" class="sr-only">Текст поста</label>
+        <textarea id="post_text" name="post_text" class="form-control" rows="10"
+               placeholder="Текст поста" required></textarea>
+        <label for="photo" class="sr-only">Фото</label>
+        <input type="file" id="photo" name="photo" class="form-control"
+               placeholder="Файл" required>
+        {% if not request.user.is_authenticated %}
+        <label for="owner_user" class="sr-only">Ваше имя</label>
+        <input type="text" id="owner_user" name="owner_user" class="form-control"
+               placeholder="Ваше имя" required>
+        {%endif%}
+
+        <p class="mt-2 mb-3"></p>
+        <input class="btn btn-lg btn-primary btn-block" type="submit" value="Создать пост">
+    </form>
+</div>
+{%endblock%}

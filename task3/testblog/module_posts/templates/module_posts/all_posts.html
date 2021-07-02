@@ -1,0 +1,23 @@
+<p></p>
+<div class="container">
+    {%for unit in posts%}
+    <div class="card">
+  <div class="card-header">
+      <h5>{{unit.post_title}}</h5>
+  </div>
+  <div class="card-body">
+    <p class="card-text">{{unit.post_text}}</p>
+    <a href="{%url 'detail' pk=unit.id%}" class="btn btn-primary">Прочесть</a>
+      {% if request.user.is_superuser %}
+      <form class="form-signin" method="post">
+        {% csrf_token %}
+        <input type="hidden" name="post_id" value="{{ unit.id }}">
+        <p class="mt-2 mb-3"></p>
+        <input class="btn btn-danger btn-block" type="submit" value="Удалить">
+    </form>
+      {%endif%}
+  </div>
+</div>
+    <p></p>
+    {%endfor%}
+</div>
